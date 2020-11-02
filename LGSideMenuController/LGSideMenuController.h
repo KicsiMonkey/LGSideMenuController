@@ -70,6 +70,7 @@ static NSString * _Nonnull const LGSideMenuSegueRightIdentifier = @"right";
 typedef void (^ _Nullable LGSideMenuCompletionHandler)(void);
 typedef void (^ _Nullable LGSideMenuHandler)(LGSideMenuController * _Nonnull sideMenuController, UIView * _Nonnull view);
 typedef void (^ _Nullable LGSideMenuAnimationsBlock)(LGSideMenuController * _Nonnull sideMenuController, UIView * _Nonnull view, NSTimeInterval duration);
+typedef void (^ _Nullable LGSideMenuGestureProgressHandler)(LGSideMenuController * _Nonnull sideMenuController, UIView * _Nonnull view, CGFloat progress);
 
 typedef NS_OPTIONS(NSUInteger, LGSideMenuAlwaysVisibleOptions) {
     LGSideMenuAlwaysVisibleOnNone           = 0,
@@ -575,6 +576,11 @@ LGSideMenuSwipeGestureRange LGSideMenuSwipeGestureRangeMake(CGFloat left, CGFloa
 @property (copy, nonatomic, nullable) LGSideMenuHandler didShowRightView;
 
 /** To avoid retain cycle, do not forget about weak reference to self */
+@property (copy, nonatomic, nullable) LGSideMenuGestureProgressHandler leftViewSwipeGestureDidProgress;
+/** To avoid retain cycle, do not forget about weak reference to self */
+@property (copy, nonatomic, nullable) LGSideMenuGestureProgressHandler rightViewSwipeGestureDidProgress;
+
+/** To avoid retain cycle, do not forget about weak reference to self */
 @property (copy, nonatomic, nullable) LGSideMenuHandler willHideRightView;
 /** To avoid retain cycle, do not forget about weak reference to self */
 @property (copy, nonatomic, nullable) LGSideMenuHandler didHideRightView;
@@ -755,6 +761,9 @@ LGSideMenuSwipeGestureRange LGSideMenuSwipeGestureRangeMake(CGFloat left, CGFloa
 
 - (void)willHideRightView:(nonnull UIView *)rightView sideMenuController:(nonnull LGSideMenuController *)sideMenuController;
 - (void)didHideRightView:(nonnull UIView *)rightView sideMenuController:(nonnull LGSideMenuController *)sideMenuController;
+
+- (void)leftViewSwipeGestureDidProgress:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController progress:(CGFloat) progress;
+- (void)rightViewSwipeGestureDidProgress:(nonnull UIView *)rightView sideMenuController:(nonnull LGSideMenuController *)sideMenuController progress:(CGFloat) progress;
 
 /** You can use this method to add some custom animations */
 - (void)showAnimationsForLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController duration:(NSTimeInterval)duration;

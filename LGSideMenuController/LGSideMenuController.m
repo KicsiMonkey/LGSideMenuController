@@ -3072,6 +3072,10 @@ rightViewBackgroundImageFinalScale = _rightViewBackgroundImageFinalScale;
             else if (percentage > 1.0) {
                 percentage = 1.0;
             }
+            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(leftViewSwipeGestureDidProgress:sideMenuController:progress:)]) {
+                [self.delegate leftViewSwipeGestureDidProgress:self.leftView sideMenuController:self progress:percentage];
+            }
 
             if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
                 [self rootViewsTransformValidateWithPercentage:percentage];
@@ -3140,6 +3144,10 @@ rightViewBackgroundImageFinalScale = _rightViewBackgroundImageFinalScale;
             }
             else if (percentage > 1.0) {
                 percentage = 1.0;
+            }
+            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(rightViewSwipeGestureDidProgress:sideMenuController:progress:)]) {
+                [self.delegate rightViewSwipeGestureDidProgress:self.rightView sideMenuController:self progress:percentage];
             }
 
             if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
